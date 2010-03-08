@@ -12,13 +12,15 @@ import functools
 
 def autocached(method):
     @functools.wraps(method)
-    def wrapper(self, *args, **kwargs):
+    def wrapper(*args, **kwargs):
         name = method.__name__+str(args)+str(kwargs)
         data = memcache.get(name)
         if not data:
             logging.info("CACHE MISS for "+name)
-            data = method(self, *args, **kwargs)
+            data = method(*args, **kwargs)
             memcache.set(name, data, 60*60*24)
+        else:
+            logging.info("CACHE HIT for "+name)
         return data
     return wrapper
 

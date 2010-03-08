@@ -32,8 +32,9 @@ def is_valid_response(code):
     if code / 100 == 2 or code / 100 == 3:
         return True
     return False
-   
-def get(url):
+
+@helpers.autocached   
+def getfavicon(url):
     logging.info("Working out favicon for %s" % (url))
     result = fetch_url(url)
     if result:

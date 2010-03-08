@@ -12,15 +12,21 @@ import faviconlookup
 
 class JSONHandler(webapp.RequestHandler):
     @helpers.write_response
-    @helpers.autocached
     def get(self, url):
-        faviconurl = faviconlookup.get(url)
+        faviconurl = faviconlookup.getfavicon(url)
         return helpers.render_template(self, 'webviews/json.html', {'faviconurl': faviconurl})
 
+
+class XMLHandler(webapp.RequestHandler):
+    @helpers.write_response
+    def get(self, url):
+        faviconurl = faviconlookup.getfavicon(url)
+        return helpers.render_template(self, 'webviews/xml.html', {'faviconurl': faviconurl})
 
 def main():
   application = webapp.WSGIApplication([
         ('/json/(.*)', JSONHandler),
+        ('/xml/(.*)', XMLHandler),
         ],    debug=True)
   wsgiref.handlers.CGIHandler().run(application)
 
