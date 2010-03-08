@@ -1,7 +1,7 @@
 FavIcon Locator Service
 =======================
 
-about
+About
 -----
 
 Finding out the favicon of a site is a bit of a pain.  You have to hit the site and look for the link tag in the HTML, if that exists, you have to go try to get the destination object, if that 404's or there wasn't a link tag you can look at /favicon.ico and see if it's there.  All in all, to render a highly performant page, you don't want to do all of that.
@@ -11,6 +11,10 @@ This service provides two highly cached services.  Firstly you can use it instea
 Examples
 --------
 
+IMG
+---
+
+(TODO)
 <img src="http://faviconlocator.appspot.com/img/www.guardian.co.uk">
 
 JSON
@@ -19,6 +23,8 @@ http://faviconlocator.appspot.com/json/www.guardian.co.uk => {"location": "www.g
 
 JSONP
 -----
+
+(TODO)
 http://faviconlocator.appspot.com/json/www.guardian.co.uk?callback=f1 => f1({"location": "www.guardian.co.uk/favicon.ico"});
 
 XML
