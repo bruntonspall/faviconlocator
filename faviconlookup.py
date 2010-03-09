@@ -47,8 +47,12 @@ def getfavicon(url):
             return favicon_url
    
     # At this point try site/favicon.ico
+    # We may have been redirected, if so check the root of the site we got redirected to
     if not url.endswith('/favicon.ico'):
-        default_url = urlparse.urlparse(format_url(url)).netloc+"/favicon.ico"
+        logging.info("Final url was "+result.final_url)
+        default_url = urlparse.urlparse(format_url(result.final_url)).netloc+"/favicon.ico"
+        if default_url == "feedproxy.google.com/favicon.ico":
+            return None
         result = fetch_url(default_url)
         if result:
             return default_url
