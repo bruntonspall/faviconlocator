@@ -9,24 +9,21 @@ import helpers
 import logging
 import faviconlookup
 
-
-class JSONHandler(webapp.RequestHandler):
+class GenericHandler(webapp.RequestHandler):
     @helpers.write_response
-    def get(self, url):
+    def get(self, type, url):
         faviconurl = faviconlookup.getfavicon(url)
-        return helpers.render_template(self, 'webviews/json.html', {'faviconurl': faviconurl})
+        return helpers.render_template(self, 'webviews/%s.html' % (type), {'faviconurl': faviconurl})
 
-
-class XMLHandler(webapp.RequestHandler):
+class MainHandler(webapp.RequestHandler):
     @helpers.write_response
-    def get(self, url):
-        faviconurl = faviconlookup.getfavicon(url)
-        return helpers.render_template(self, 'webviews/xml.html', {'faviconurl': faviconurl})
+    def get(self):
+        return helpers.render_template(self, 'webviews/home.html', {})
 
 def main():
   application = webapp.WSGIApplication([
-        ('/json/(.*)', JSONHandler),
-        ('/xml/(.*)', XMLHandler),
+        ('^/$', MainHandler),
+        ('^/(.*)/(.*)$', GenericHandler),
         ],    debug=True)
   wsgiref.handlers.CGIHandler().run(application)
 

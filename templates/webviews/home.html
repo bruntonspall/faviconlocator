@@ -1,0 +1,21 @@
+<html>
+<head>
+<title>
+FavIcon Locator Service
+<title>
+</head>
+<body>
+<h1>FavIcon Locator Service</h1>
+<h2>About</h2>
+
+<p>Finding out the favicon of a site is a bit of a pain.  You have to hit the site and look for the link tag in the HTML, if that exists, you have to go try to get the destination object, if that 404's or there wasn't a link tag you can look at /favicon.ico and see if it's there.  All in all, to render a highly performant page, you don't want to do all of that.
+</p>
+<p>This service provides two highly cached services.  Firstly you can use it instead of a favicon and it will return the image, meaning that you can render an img tag in HTML with it, and the users browser will do all that work.  This alone is not unique, there are at least 3 other services that do this.  But the extra service provided here is that you can also merely ask the service where the destination sites favicon is actually located, and it will tell you, in json, xml or plain-text as you wish.</p>
+
+<h2>Examples</h2>
+<p><a href="/json/www.guardian.co.uk">JSON</a></p>
+<p><a href="/xml/www.guardian.co.uk">XML</a></p>
+<p><a href="/text/www.guardian.co.uk">TEXT</a></p>
+<p>Image: <img src="/img/www.guardian.co.uk"></p>
+</body>
+</html>
