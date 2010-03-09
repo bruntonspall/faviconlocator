@@ -37,6 +37,7 @@ def is_valid_response(code):
 def getfavicon(url):
     logging.info("Working out favicon for %s" % (url))
     result = fetch_url(url)
+    favicon_url = None
     if result:
         favicon_url = find_favicon(result.content)
     if favicon_url:
