@@ -23,7 +23,7 @@ class MainHandler(webapp.RequestHandler):
 def main():
   application = webapp.WSGIApplication([
         ('^/$', MainHandler),
-        ('^/(.*)/(.*)$', GenericHandler),
+        ('^/([^/]*)/(.*)$', GenericHandler),
         ],    debug=True)
   wsgiref.handlers.CGIHandler().run(application)
 
