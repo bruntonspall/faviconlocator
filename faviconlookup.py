@@ -43,7 +43,10 @@ def getfavicon(url):
         favicon_url = find_favicon(result.content)
     if favicon_url:
         if favicon_url.startswith('/'):
-            root = urlparse.urlparse(format_url(result.final_url)).netloc
+            if result.final_url:
+                root = urlparse.urlparse(format_url(result.final_url)).netloc
+            else:
+                root = urlparse.urlparse(format_url(url)).netloc
             favicon_url = root+favicon_url
         if fetch_url(favicon_url):
             return favicon_url
