@@ -4,6 +4,7 @@ from BeautifulSoup import BeautifulSoup
 import logging
 import urlparse
 import helpers
+import urllib
 
 def find_favicon(html):
     soup = BeautifulSoup(html)
@@ -17,8 +18,8 @@ def find_favicon(html):
 
 def format_url(url):
     if not url.startswith('http://'):
-        return 'http://'+url
-    return url
+        url = 'http://'+url
+    return urllib.unquote(url)
 
 def fetch_url(url):
     logging.info("Fetching: %s" % (format_url(url)))
@@ -42,7 +43,8 @@ def getfavicon(url):
         favicon_url = find_favicon(result.content)
     if favicon_url:
         if favicon_url.startswith('/'):
-            favicon_url = url+favicon_url
+            root = urlparse.urlparse(format_url(result.final_url)).netloc
+            favicon_url = root+favicon_url
         if fetch_url(favicon_url):
             return favicon_url
    
