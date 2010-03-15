@@ -43,18 +43,15 @@ def getfavicon(url):
         favicon_url = find_favicon(result.content)
     if favicon_url:
         if favicon_url.startswith('/'):
-            if result.final_url:
-                root = urlparse.urlparse(format_url(result.final_url)).netloc
-            else:
-                root = urlparse.urlparse(format_url(url)).netloc
-            favicon_url = root+favicon_url
+            favicon_url = urlparse.urlparse(format_url(result.final_url or url)).netloc + favicon_url
         if fetch_url(favicon_url):
             return favicon_url
    
     # At this point try site/favicon.ico
     # We may have been redirected, if so check the root of the site we got redirected to
     if not url.endswith('/favicon.ico'):
-        if result.final_url:
+        # If we got a 404 then result is None and doesn't have a final_url, but /favicon might still exist
+        if result and result.final_url:
             root = urlparse.urlparse(format_url(result.final_url)).netloc
         else:
             root = urlparse.urlparse(format_url(url)).netloc
